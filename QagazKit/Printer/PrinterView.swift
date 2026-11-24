@@ -116,7 +116,7 @@ struct PrinterView: View {
         }
         .onAppear { discovery.start() }
         .onDisappear { discovery.stop() }
-        .onChange(of: photo) { _, item in Task { await vm.loadPhoto(item) } }
+        .onChange(of: photo) { item in Task { await vm.loadPhoto(item) } }
         .fileImporter(isPresented: $showFiles, allowedContentTypes: [.pdf, .image]) { vm.loadFile($0) }
     }
 
