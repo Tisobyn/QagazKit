@@ -22,6 +22,13 @@ final class PrinterViewModel: ObservableObject {
     @Published var message: String?
     @Published var isPrinting = false
 
+    init() {
+        if Demo.isOn {
+            content = .image(Demo.photo())
+            fileName = "vacation.jpg"
+        }
+    }
+
     var preview: UIImage? {
         switch content {
         case .image(let image): return image

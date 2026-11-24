@@ -82,6 +82,11 @@ final class ScannerTestViewModel: ObservableObject {
     // MARK: - Find
 
     func startSearch() {
+        if Demo.isOn {
+            scanners = Demo.scanners
+            addLog("Found: \(Demo.scanners[0].name) at \(Demo.scanners[0].host):80")
+            return
+        }
         isSearching = true
         addLog("Searching for scanners (_uscan._tcp, _uscans._tcp)...")
         discovery.onUpdate = { [weak self] list in
@@ -129,6 +134,13 @@ final class ScannerTestViewModel: ObservableObject {
         selected = scanner
         connection = .connecting
         capabilities = nil
+        if Demo.isOn {
+            capabilities = Demo.capabilities
+            applyDefaults(for: Demo.capabilities)
+            connection = .connected
+            addLog("Connected: \(scanner.name), eSCL 2.63")
+            return
+        }
         client = ESCLClient(scanner: scanner)
         addLog("Connecting to \(scanner.name)...")
         Task {
@@ -175,6 +187,22 @@ final class ScannerTestViewModel: ObservableObject {
     // MARK: - Scan
 
     func startScan() {
+        if Demo.isOn {
+            resetScanResult()
+            scanState = .scanning
+            scanTask = Task {
+                try? await Task.sleep(nanoseconds: 1_500_000_000)
+                guard let data = Demo.scannedPage().jpegData(compressionQuality: 0.8) else { return }
+                pages = [ESCLPage(data: data, mime: "image/jpeg")]
+                pagesReceived = 1
+                scanDuration = 8.1
+                pdfURL = makePDF(from: pages)
+                scanState = .done
+                addLog("Done: 1 page(s) in 8.1 s")
+            }
+            return
+        }
+
         guard let client, let caps = capabilities else { return }
         resetScanResult()
         scanState = .scanning

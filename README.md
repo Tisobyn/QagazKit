@@ -27,36 +27,20 @@
 
 No server. No account. No third-party libraries.
 
-## 📱 How it looks
+## 📱 Screenshots
 
-> Example data, for illustration.
+> Taken in demo mode with a fake printer and a fake scanner. Names and data are made up.
 
-```
-┌─────────────────────────────┐
-│  Printer                 ⟳  │
-├─────────────────────────────┤
-│  PRINTERS                   │
-│  🖨  Brother HL-L2350DW   ✅ │
-│  🖨  HP LaserJet Pro M404   │
-│  DOCUMENT                   │
-│  🖼  Choose photo           │
-│  📄 Choose PDF or image     │
-│       [ vacation.jpg ]      │
-│                             │
-│  [        🖨  Print       ] │
-└─────────────────────────────┘
-```
-
-Example scan log:
-
-```
-10:42:01  Searching for scanners (_uscan._tcp, _uscans._tcp)...
-10:42:03  Found: Brother DCP-L2550DW at 192.168.1.42:80
-10:42:05  Connected: Brother DCP-L2550DW, eSCL 2.63
-10:42:09  Scan started: Platen, RGB24, 300 dpi, image/jpeg
-10:42:17  Page 1 received
-10:42:17  Done: 1 page(s) in 8.1 s
-```
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/print.png" width="200"><br><sub><b>Print</b><br>pick a printer and a file</sub></td>
+    <td align="center"><img src="docs/screenshots/scan-find.png" width="200"><br><sub><b>Find scanner</b><br>or add it by IP</sub></td>
+    <td align="center"><img src="docs/screenshots/scan-settings.png" width="200"><br><sub><b>Scan settings</b><br>source, color, quality</sub></td>
+    <td align="center"><img src="docs/screenshots/scan-result.png" width="200"><br><sub><b>Result</b><br>print or share the PDF</sub></td>
+  </tr>
+</table>
+</div>
 
 ## 🚀 Getting started
 
@@ -64,6 +48,12 @@ Example scan log:
 2. Pick your iPhone (the simulator cannot see real printers).
 3. Run. Allow **Local Network** access when iOS asks.
 4. Make sure the phone and the printer are on the **same Wi-Fi**.
+
+## 🧪 Demo mode
+
+No printer or scanner at hand? Run the app with the launch argument `-demo`
+(Xcode: Product → Scheme → Edit Scheme → Run → Arguments). You get a fake
+printer, a fake scanner and a fake scanned invoice, so you can try every screen.
 
 ## 🧩 How it works
 
@@ -76,6 +66,7 @@ QagazKit/
 │   ├── ESCLScannerService.swift # discovery + eSCL client (HTTP/XML)
 │   ├── ScannerTestViewModel.swift
 │   └── ScannerTestView.swift    # find, connect, scan, result
+├── DemoData.swift               # fake devices for demo mode
 ├── ContentView.swift            # tabs: Print / Scan
 └── Info.plist (project root)    # Bonjour + local network keys
 ```

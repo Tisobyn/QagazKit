@@ -44,6 +44,12 @@ final class PrinterDiscovery: NSObject, ObservableObject, NetServiceBrowserDeleg
         services.removeAll()
         printers.removeAll()
         connectedID = nil
+        if Demo.isOn {
+            printers = Demo.printers
+            state = .found
+            connectedID = printers.first?.id
+            return
+        }
         ippBrowser.searchForServices(ofType: "_ipp._tcp.", inDomain: "local.")
         ippsBrowser.searchForServices(ofType: "_ipps._tcp.", inDomain: "local.")
         DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
@@ -58,8 +64,9 @@ final class PrinterDiscovery: NSObject, ObservableObject, NetServiceBrowserDeleg
     }
 
     func connect(_ item: DiscoveredPrinter) {
-        connectingID = item.id
         errorText = nil
+        if Demo.isOn { connectedID = item.id; return }
+        connectingID = item.id
         item.printer.contactPrinter { [weak self] reachable in
             DispatchQueue.main.async {
                 guard let self else { return }
