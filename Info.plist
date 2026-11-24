@@ -4,11 +4,14 @@
 <dict>
 	<key>NSBonjourServices</key>
 	<array>
+		<string>_ipp._tcp</string>
+		<string>_ipps._tcp</string>
+		<string>_printer._tcp</string>
 		<string>_uscan._tcp</string>
 		<string>_uscans._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>We need access to your local network to find your scanner.</string>
+	<string>We need access to your local network to find your printer and scanner.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>

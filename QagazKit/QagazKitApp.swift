@@ -11,7 +11,7 @@ import SwiftUI
 struct QagazKitApp: App {
     var body: some Scene {
         WindowGroup {
-            ScannerTestView()
+            ContentView()
         }
     }
 }
