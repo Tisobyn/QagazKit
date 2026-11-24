@@ -8,6 +8,7 @@
 ![Swift](https://img.shields.io/badge/Swift-5-orange?logo=swift)
 ![UI](https://img.shields.io/badge/UI-SwiftUI-informational)
 ![Deps](https://img.shields.io/badge/dependencies-none-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 </div>
 
@@ -93,4 +94,4 @@ QagazKit/
 
 ## 📄 License
 
-Add a license of your choice (for example MIT).
+Open source under the [MIT License](LICENSE). Everyone can use it, change it and share it.
