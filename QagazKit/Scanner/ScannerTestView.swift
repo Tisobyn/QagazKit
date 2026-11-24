@@ -344,6 +344,9 @@ struct ScannerTestView: View {
             .cornerRadius(10)
 
             if let url = vm.pdfURL {
+                Button { vm.printScan() } label: {
+                    primaryLabel("Print", icon: "printer.fill")
+                }
                 ShareLink(item: url) {
                     primaryLabel("Share / save PDF", icon: "square.and.arrow.up")
                 }

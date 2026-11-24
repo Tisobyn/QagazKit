@@ -257,6 +257,26 @@ final class ScannerTestViewModel: ObservableObject {
         return document.write(to: url) ? url : nil
     }
 
+    /// Opens the iOS print dialog (it lets the user pick a printer) for the scanned PDF.
+    func printScan() {
+        guard let url = pdfURL, let data = try? Data(contentsOf: url) else { return }
+        let info = UIPrintInfo(dictionary: nil)
+        info.outputType = .general
+        info.jobName = url.lastPathComponent
+        let controller = UIPrintInteractionController.shared
+        controller.printInfo = info
+        controller.printingItem = data
+        controller.present(animated: true) { [weak self] _, completed, error in
+            Task { @MainActor in
+                if let error {
+                    self?.addLog("Print failed: \(error.localizedDescription)", error: true)
+                } else if completed {
+                    self?.addLog("Sent to printer")
+                }
+            }
+        }
+    }
+
     // MARK: - Log
 
     func addLog(_ text: String, error: Bool = false) {
